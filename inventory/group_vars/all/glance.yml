@@ -1,0 +1,28 @@
+glance_helm_values:
+  conf:
+    glance:
+      image_format:
+        disk_formats: qcow2,raw,iso
+  pod:
+    useHostNetwork:
+      api: true
+
+glance_images:
+  - name: CirrOS
+    url: http://download.cirros-cloud.net/0.6.2/cirros-0.6.2-x86_64-disk.img
+    min_disk: 1
+    disk_format: raw
+    container_format: bare
+    is_public: true
+  - name: ubuntu-2404-20240423
+    url: https://cloud-images.ubuntu.com/noble/20240423/noble-server-cloudimg-amd64.img
+    min_disk: 20
+    disk_format: raw
+    container_format: bare
+    is_public: true
+  - name: rockylinux-94-20240509
+    url: https://download.rockylinux.org/pub/rocky/9.4/images/x86_64/Rocky-9-GenericCloud-Base-9.4-20240509.0.x86_64.qcow2
+    min_disk: 20
+    disk_format: raw
+    container_format: bare
+    is_public: true

@@ -1,0 +1,6 @@
+# secret files
+notes.md
+inventory/group_vars/all/secrets.yml
+
+# secret folders
+home-venv/

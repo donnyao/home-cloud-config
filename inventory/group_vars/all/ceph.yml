@@ -1,0 +1,19 @@
+ceph_fsid: c6967683-e815-5f34-ab7a-64b1739393d2
+ceph_mon_public_network: 192.168.0.0/24
+cephadm_host_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcsnkXEl9kZlk1OcsGej8HdEqSXK+2f+mWYVQS16B/8/n/K7RERBH1k4zLGc1hd0utGULvDrTdN/yDov707skD6cpwmMN7jS8/ARLeM2M8fPekBjyLJaUxr36u3xqlOGfn87dtLGFBkLnxIVg8QRfv02nMy0yYT8wDtnNeugUJ+bEr17oPKDM0c5/Oztcebl3HfpMkHoWHhZc1yTUdaTCCO4D7/itzZ81My+DZYg1JEcECWou02H6gb+NqW0WCIKBOSozdyi0KwQ/8bgBIqHzwPdm4bdk7ckYfWdPikgVSikDj8AtCo3V5ZVd56Bm11Hs9Nztpog8tGWbAuhmSNFHLWaGDc+MGi3cU+813tGr0jZ4FBrwxAwB65wWQFBPXQW3W2tFqieSEqxhOsqzDDF507SgVGXDS3+1OCP3ibU4YiSkQYeQQJXZwaSUuYZB07l/WgGWbJ116EBLsLiYW45M9zPgZpe0C4OaGUVH5TPRJZwENjPIheKn/bKbN5soDymc= ceph-c6967683-e815-5f34-ab7a-64b1739393d2"
+
+rook_ceph_cluster_radosgw_spec:
+  metadataPool:
+    failureDomain: osd
+  dataPool:
+    failureDomain: osd
+  gateway:
+    instances: 1
+
+ceph_conf_overrides:
+  - section: global
+    option: osd crush chooseleaf type
+    value: 0
+  - section: mon
+    option: auth allow insecure global id reclaim
+    value: false

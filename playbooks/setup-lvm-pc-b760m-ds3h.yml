@@ -1,0 +1,50 @@
+---
+- name: Configure LVM for Ceph OSDs on pc-b760m-ds3h
+  hosts: pc-b760m-ds3h
+  become: true
+  vars:
+    vg_name: "ceph-vg"
+    lv_names:
+      - "ceph-osd-1"
+      - "ceph-osd-2"
+      - "ceph-osd-3"
+    partitions:
+      - "/dev/nvme0n1p3"
+      - "/dev/nvme0n1p4"
+      - "/dev/nvme0n1p5"
+
+  tasks:
+    - name: Install LVM2 package
+      apt:
+        name: lvm2
+        state: present
+        update_cache: yes
+
+    - name: Remove existing ceph-vg if it exists (cleanup)
+      lvg:
+        vg: "{{ vg_name }}"
+        state: absent
+      ignore_errors: yes
+
+    - name: Create volume group ceph-vg with all partitions
+      lvg:
+        vg: "{{ vg_name }}"
+        pvs: "{{ partitions | join(',') }}"
+        state: present
+
+    - name: Create logical volumes for Ceph OSDs
+      lvol:
+        vg: "{{ vg_name }}"
+        lv: "{{ item.0 }}"
+        size: "93G"
+        state: present
+      loop: "{{ lv_names | zip(partitions) | list }}"
+
+    - name: Show LVM configuration
+      command: lvdisplay
+      register: lvdisplay_result
+      changed_when: false
+
+    - name: Display LVM configuration
+      debug:
+        var: lvdisplay_result.stdout_lines
