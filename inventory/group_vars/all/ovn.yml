@@ -1,0 +1,11 @@
+---
+atmosphere_network_backend: ovn
+ovn_helm_values:
+  conf:
+    auto_bridge_add:
+      br-ex: enp2s0
+  pod:
+    replicas:
+      ovn_ovsdb_nb: 1
+      ovn_ovsdb_sb: 1
+      ovn_northd: 1

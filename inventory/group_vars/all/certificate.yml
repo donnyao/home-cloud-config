@@ -1,0 +1,3 @@
+cluster_issuer_type: self-signed
+#cluster_issuer_type: acme
+#cluster_issuer_acme_email: ao.donny@gmail.com

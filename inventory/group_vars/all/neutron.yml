@@ -1,0 +1,16 @@
+neutron_networks:
+- external: true
+  mtu_size: 1500
+  name: public
+  port_security_enabled: true
+  provider_network_type: flat
+  provider_physical_network: external
+  shared: true
+  subnets:
+  - allocation_pool_end: 192.168.0.250
+    allocation_pool_start: 192.168.0.200
+    cidr: 192.168.0.0/24
+    enable_dhcp: true
+    gateway_ip: 192.168.0.1
+    name: public-subnet
+    dns_nameservers: 8.8.8.8,8.8.4.4

@@ -1,0 +1,4 @@
+kubernetes_hostname: kube.home.site
+kubernetes_keepalived_interface: enp2s0
+kubernetes_keepalived_vip: 192.168.0.100
+kubernetes_keepalived_vrid: 42

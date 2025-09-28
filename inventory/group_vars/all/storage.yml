@@ -1,0 +1,3 @@
+atmosphere_ceph_enabled: true
+csi_driver: rbd
+ceph_csi_rbd_provisioner_replicas: 1
