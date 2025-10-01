@@ -1,0 +1,34 @@
+cinder_helm_values:
+  conf:
+    ceph:
+      pools:
+        backup:
+          replication: 3
+        cinder.volumes:
+          replication: 3
+    cinder:
+      DEFAULT:
+        debug: "{{ lookup('env', 'ATMOSPHERE_DEBUG') | default('false', True) }}"
+        osapi_volume_workers: 2
+        # Configure Cinder to use the new conversion directory
+        image_conversion_dir: /var/lib/cinder/conversion_new
+        # Enable image conversion to test the directory usage
+        image_conversion_disable: false
+  pod:
+    replicas:
+      api: 1
+      scheduler: 1
+      volume: 1
+    # Add volume mount for conversion area using hostPath with new path
+    mounts:
+      cinder_volume:
+        cinder_volume:
+          volumeMounts:
+            - name: cinder-conversion-new
+              mountPath: /var/lib/cinder/conversion_new
+              readOnly: false  # Set to true for read-only mount
+          volumes:
+            - name: cinder-conversion-new
+              hostPath:
+                path: /mnt/cinder-staging
+                type: DirectoryOrCreate
