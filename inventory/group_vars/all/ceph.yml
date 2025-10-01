@@ -17,3 +17,9 @@ ceph_conf_overrides:
   - section: mon
     option: auth allow insecure global id reclaim
     value: false
+  - section: global
+    option: osd pool default size
+    value: 2
+  - section: global
+    option: osd pool default min size
+    value: 1
