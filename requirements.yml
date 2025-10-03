@@ -1,5 +1,5 @@
 collections:
   - name: vexxhost.atmosphere
-    version: 4.6.6
+    version: 4.6.8
   - name: community.sops
     version: 1.9.2
